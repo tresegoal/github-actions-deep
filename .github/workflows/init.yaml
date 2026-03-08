@@ -5,7 +5,18 @@ name: Placeholder
 on: 
   push:
     branches: main
-  workflow_dispatch: 
+  workflow_dispatch:
+   inputs:
+     name:
+      description: "nom de l'utilisateur qui a declenche le workflow"
+      required: true
+      type: string
+     role:
+      description: "Fonction de l'utilisateur"
+      required: true
+      type: string
+     
+ 
 
 jobs:
   init:
