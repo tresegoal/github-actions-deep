@@ -36,6 +36,7 @@ jobs:
         run: |
           echo "URL=${{ github.event.client_payload.url }}" >> $GITHUB_ENV
           echo "The external endPoint that triggered le workflow is: $URL"
+          echo "The external endPoint that triggered le workflow is: ${{ github.event.client_payload.url }}"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
