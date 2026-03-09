@@ -24,19 +24,26 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
+    outputs:
+      URL: ${{ steps.external-data.outputs.URL }}
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
+      - name: log external data
+        id: external-data
+        run: |
+          echo "URL=${{ github.event.client_payload.url }}" >> $GITHUB_OUTPUT
+          echo $URL
+          echo "The external endPoint that triggered le workflow is: ${{ github.event.client_payload.url }}"
   dump_contexts_to_log:
     runs-on: ubuntu-latest
+    needs: init
     steps:
       - name: dump external data
         run: |
-          echo "URL=${{ github.event.client_payload.url }}" >> $GITHUB_OUTPUT
-          echo "The external endPoint that triggered le workflow is: $URL"
-          echo "The external endPoint that triggered le workflow is: ${{ github.event.client_payload.url }}"
+          echo "The external endPoint that triggered le workflow is: ${{ needs.init.outputs.URL }}"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
