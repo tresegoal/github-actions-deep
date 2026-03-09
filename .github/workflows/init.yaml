@@ -5,6 +5,9 @@ name: Placeholder
 on: 
   push:
     branches: main
+  repository_dispatch:
+    types:
+      - triggering_from_postman
   workflow_dispatch:
    inputs:
      name:
